@@ -1,4 +1,4 @@
-//Reference only
+//Reference for database structure. Never used in real code
 let db = {
     users: [
         {
@@ -27,6 +27,16 @@ let db = {
             screamId: 'asdhgjasdfkwler2kdjfh',
             body: 'Hello World',
             createdAt: '2019-03-15T23:53:02.0000'
+        }
+    ],
+    notifications :[
+        {
+            recipient: 'user',
+            sender: 'johnn',
+            read: 'true | false',
+            screamId: 'fhewu3023nfasd02f',
+            type: 'like | comment',
+            createdAt: '2019-03-15T10:59:52.798Z'
         }
     ]
 };

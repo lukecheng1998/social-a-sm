@@ -60,7 +60,7 @@ app.post('/notifications', FBAuth, markNotificationsRead);
 exports.api = functions.https.onRequest(app);
 exports.createNotificationOnLike = functions
 //.region('us-central1')
-.firestore.document('/likes/{id}')
+.firestore.document('likes/{id}')
 .onCreate((snapshot) => {
     db.doc(`/screams/${snapshot.data().screamId}`)
     .get()

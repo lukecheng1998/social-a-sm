@@ -26,7 +26,9 @@ const {
     login, 
     uploadImage, 
     addUserDetails, 
-    getAuthenticatedUser
+    getAuthenticatedUser,
+    getUserDetails,
+    markNotificationsRead
 } = require('./handlers/users');
 //Gets the posts
 //Scream routes
@@ -49,17 +51,16 @@ app.post('/signup', signup);
 app.post('/login', login);
 app.post('/user', FBAuth, addUserDetails);
 app.post('/user/image', FBAuth, uploadImage);
-
-
-
+app.get('/user/:handle', getUserDetails);
+app.post('/notifications', FBAuth, markNotificationsRead);
 
 
 //Have to export our changes for express
 //i.e. https://baseurl.com/url/...
 exports.api = functions.https.onRequest(app);
 exports.createNotificationOnLike = functions
-.region('us-central1')
-.firestore.document('likes/{id}')
+//.region('us-central1')
+.firestore.document('/likes/{id}')
 .onCreate((snapshot) => {
     db.doc(`/screams/${snapshot.data().screamId}`)
     .get()
@@ -83,7 +84,9 @@ exports.createNotificationOnLike = functions
         return;
     });
 });
-exports.deleteNotificationOnUnLike = functions.region('us-central1').firestore.document('likes/{id}')
+exports.deleteNotificationOnUnLike = functions
+//.region('us-central1')
+.firestore.document('likes/{id}')
 .onDelete((snapshot) => {
     db.doc(`/notifications/${snapshot.id}`)
     .delete()
@@ -93,9 +96,10 @@ exports.deleteNotificationOnUnLike = functions.region('us-central1').firestore.d
     .catch(err => {
         console.error(err);
         return;
-    })
+    });
 });
-exports.createNotificationOnComment = functions.region('us-central1')
+exports.createNotificationOnComment = functions
+//.region('us-central1')
 .firestore.document('comments/{id}')
 .onCreate((snapshot) => {
     db.doc(`/screams/${snapshot.data().screamId}`).get()
@@ -117,5 +121,5 @@ exports.createNotificationOnComment = functions.region('us-central1')
     .catch(err => {
         console.error(err);
         return;
-    })
-})
+    });
+});

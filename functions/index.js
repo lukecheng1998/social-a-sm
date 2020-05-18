@@ -2,7 +2,8 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const app = require('express')();
 const FBAuth = require('./util/fbAuth');
-
+const cors = require('cors');
+app.use(cors());
 
 
 // Your web app's Firebase configuration

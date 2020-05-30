@@ -45,7 +45,6 @@ exports.sendAChat = (req, res) => {
         return res.status(400).json({body: 'Body must not be empty'});
     }
     const newChat = {
-        chatId: doc.id,
         body: req.body.body,
         userHandle: req.user.handle,
         userImage: req.user.imageUrl,

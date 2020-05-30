@@ -21,7 +21,8 @@ const {getAllScreams,
     likeScream,
     unlikeScream,
     deleteScream,
-    sendAChat
+    sendAChat,
+    getAllChats
 } = require('./handlers/screams');
 const {
     signup, 
@@ -56,7 +57,8 @@ app.post('/user/image', FBAuth, uploadImage);
 app.get('/user/:handle', getUserDetails);
 app.post('/notifications', FBAuth, markNotificationsRead);
 
-app.post('/chats', sendAChat);
+app.post('/chats', FBAuth, sendAChat);
+app.get('/chats', FBAuth, getAllChats);
 //Have to export our changes for express
 //i.e. https://baseurl.com/url/...
 exports.api = functions.https.onRequest(app);

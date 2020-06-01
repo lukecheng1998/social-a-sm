@@ -42,7 +42,7 @@ exports.getAllChats = (req, res) => {
 }
 exports.sendAChat = (req, res) => {
     if(req.body.body.trim() === ''){
-        return res.status(400).json({body: 'Body must not be empty'});
+        return res.status(400).json({body: 'Textfield must not be empty'});
     }
     const newChat = {
         body: req.body.body,
